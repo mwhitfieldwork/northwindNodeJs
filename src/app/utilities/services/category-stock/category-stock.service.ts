@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { catchError, Observable, tap, throwError} from 'rxjs';
+import { catchError, map, Observable, tap, throwError} from 'rxjs';
 import { Category } from '../../models/category';
 import { CategorySale } from '../../models/categorySale';
+
+interface CategoryResponse {
+  success: boolean;
+  data: Category[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +15,15 @@ import { CategorySale } from '../../models/categorySale';
 export class StockCategoryService {
   private _http = inject(HttpClient)
   
-  url:string = 'https://localhost:7216';
+  //url:string = 'https://localhost:7216';
+  url:string = 'http://localhost:3002/api/v1';
   
   constructor() { }
 
   getCategories(): Observable<Category[]> {
-    var response = this._http.get<Category[]>(`${this.url}/Category/`)
+    var response = this._http.get<CategoryResponse>(`${this.url}/categories`)
       .pipe(
+        map(response => response.data),
         tap(items => {
           //console.log(items, 'Categories')
         }),
@@ -25,6 +32,7 @@ export class StockCategoryService {
 
     return response
   }
+  
 
   getSalesByCategory(categoryName:string, year:string): Observable<CategorySale[]> {
     var response = this._http.get<CategorySale[]>(`${this.url}/Category/${categoryName},${year}`)

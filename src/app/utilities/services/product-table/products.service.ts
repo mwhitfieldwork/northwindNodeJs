@@ -20,13 +20,12 @@ const httpOptions = {
 export class ProductsService {
 private _http = inject(HttpClient);
 
-  url:string = 'https://localhost:7216';
-  njsUrl:string = 'http://localhost:3000';
+  url:string = 'http://localhost:3002/api/v1';
   errorMessage:any;
 
   getProducts(): Observable<Product[]> {
     //var response = this._http.get<Product[]>(`${this.url}/Product`)
-    var response = this._http.get<ProductListResponse>(`${this.njsUrl}/api/v1/products`)
+    var response = this._http.get<ProductListResponse>(`${this.url}/products`)
       .pipe(
         map(products => products.data.slice(0, 10)), 
         tap(items => {
@@ -38,22 +37,9 @@ private _http = inject(HttpClient);
     return response
   }
 
-  getCategories(): Observable<Category[]> {
-    var response = this._http.get<Category[]>(`${this.url}/Category/`)
-      .pipe(
-        tap(items => {
-          //this.nwDataChanged.next(items);
-          console.log(this.url)
-        }),
-        catchError(this.handleError),
-      )
-
-    return response
-  }
-
   getProduct(productId: string): Observable<Product> {
     //let url = `${this.url}/Product/${productId}`;
-    let url = `${this.njsUrl}/api/v1/products/${productId}`;
+    let url = `${this.url}/products/${productId}`;
     var response = this._http.get<ProductResponse>(url)
       .pipe(
         tap(item => {
@@ -68,7 +54,7 @@ private _http = inject(HttpClient);
 
 
   createProduct(product: ProductModel): Observable<Product> {
-    let url = `${this.url}/Product/AddProduct`;
+    let url = `${this.url}/products`;
     let newProduct = JSON.stringify(product)
     var response = this._http.post<Product>(url, newProduct, httpOptions);
     console.log(url);
@@ -76,7 +62,7 @@ private _http = inject(HttpClient);
   }
 
   updateProduct(product: ProductModel, productId:string): Observable<Product> {
-    let url = `${this.url}/Product/${productId}`;
+    let url = `${this.url}/products/${productId}`;
     let newProduct = JSON.stringify(product)
     console.log(url);
     var response = this._http.put<Product>(url, newProduct, httpOptions);
