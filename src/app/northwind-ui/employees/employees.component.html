@@ -1,0 +1,56 @@
+<section id="employee-list-title">
+    <div class="add-employee">
+        <button class="btn btn-primary" (click)="onAddDialog()">Add New Employee</button>
+    </div>
+    <ng-content select="h2"></ng-content>
+</section>
+<section id="employee-detail-wrapper">
+    <ul>
+    @for(employee of employees; track employee.employeeId){
+        <li>
+            <app-employee 
+            [firstName]="employee.firstName"
+            [lastName]="employee.lastName"
+            [title]="employee.title"
+            [selected]="employee.employeeId === selectedEmployee.employeeId"
+            (click)="onSelect(employee)"></app-employee>    
+        </li>
+    }
+    </ul>
+    @if(isSelected){
+    <article class="employee-profile">
+        <div class="employee-profile__greeting">
+            <div class="employee-profile__name">
+                <p>{{selectedEmployee.firstName}}</p>
+                <p>{{selectedEmployee.lastName}}</p>
+                <p class="employee-profile__profession">{{selectedEmployee.title}}</p> 
+            </div>
+            <img [src]="profile_pic" class="employee-profile__image">
+        </div>
+
+        <div class="employee-profile__location">
+            <p>{{selectedEmployee.city}}, </p>
+            <p> {{selectedEmployee.country}}, </p>
+            <p> {{selectedEmployee.postalCode}}</p>
+        </div>
+        <div>Hire date: {{selectedEmployee.hireDate | date:'fullDate'}}</div> 
+        <div class="employee-profile__notes">
+            <p>{{selectedEmployee.notes}}</p>
+        </div>
+        <app-territories [employeeId]="selectedEmployee.employeeId"></app-territories>
+        <div class="employee-profile__drop">
+            <a href="#" class="drop-button" (click)="onDropEmployee(selectedEmployee.employeeId)">Drop Employee</a>
+        </div>
+    </article>
+    }
+
+    @if(isAddSelected){
+
+    <div>
+        <app-add-new-employee 
+        (close)="closeDialog($event)"
+        (submitFrom)="onAddEmployee($event)" 
+        ></app-add-new-employee>
+    </div>
+    }
+</section>

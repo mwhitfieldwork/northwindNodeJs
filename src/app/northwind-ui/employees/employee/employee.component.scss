@@ -1,0 +1,22 @@
+.employee-item {
+    display: flex;
+    width:250px; 
+    height:45px;
+    padding-left:10px;
+    font-family: 'Roboto', sans-serif;
+    font-size:small;
+    align-items: center;
+
+    &.active{
+        background-color: green;
+        color:#fff;
+    }
+   
+    .name {
+        width:100%;
+        margin-right:20px;
+        padding:0;
+        margin: 0;
+        font-weight:bold;
+    }
+}

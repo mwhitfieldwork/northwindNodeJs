@@ -1,0 +1,41 @@
+<div [formGroup]="parent()"><!--sets the formgroup to the form that was passed down from parent -->
+    @if(stocks().length > 0){
+        <div formArrayName="stock" class="stock-category-list header" >
+            <span>Product ID</span>
+            <span>Product Name</span>
+            <span>Quantity</span>
+            <span>Category</span>
+            <span>Unit Price</span>
+            <span>Order Date</span>
+            <span>Rating</span>
+            <!--<span>&nbsp;</span> -->
+        </div>
+    }
+    <!-- you can use pipes in for loops as well -->
+     @for (item of stocks(); track item; let i = $index) {
+        <div formArrayName="stock" class="stock-category-list" >
+            <span [formGroupName]="$index"> <!--$index is built into the @form-->
+                 {{item.value.productID}} <!--Ties the formgroup to the index in the array-->
+            </span>
+            <span class="product-name">{{item.value.productName}}</span>
+            <span>
+            <input 
+            type="number" 
+            step="10"
+            min="10"
+            max="40"
+            [value]="item.value.quantity"
+            class="category-stock-item"></span>
+            
+            <span>{{item.value.categoryName}}</span>
+            <span>{{item.value.unitPrice}}</span>
+            <span>{{item.value.orderDate | date:'MM/dd/yyyy'}}</span>
+            <span rating [score]="item.value.rating"></span> 
+
+           <!--<span><button 
+            type="button"
+            (click)="onRemove(item, $index)"
+            class="btn btn-warning">Remove</button></span> -->
+        </div>
+    }
+</div>

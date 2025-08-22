@@ -1,0 +1,9 @@
+@for(star of getStars(score); track i; let i = $index) {
+    <svg width="21" height="21" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="star">
+      <linearGradient y2="0%" x2="100%" y1="0%" x1="0%" [attr.id]="'F1g' + score + '' + i">
+        <stop stop-color="#03dffc" [attr.offset]="star" [attr.id]="'F1gst' + score + '' + i"/>
+        <stop stop-color="#FFFFFF" offset="0%" id="F1gst2"/>
+      </linearGradient>
+      <polygon [attr.fill]="getFill(score + '' + i)" stroke="lightgrey" points="10 2 12.63 7.27 18.5 8.12 14.25 12.22 15.25 18 10 15.27 4.75 18 5.75 12.22 1.5 8.12 7.37 7.27"></polygon>
+    </svg>
+}

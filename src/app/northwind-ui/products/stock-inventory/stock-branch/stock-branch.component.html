@@ -1,0 +1,17 @@
+<div [formGroup]="parent()"><!--sets the formgroup to the form that was passed down from parent -->
+    <div formGroupName="store" class="branch-detail-fields">          
+          <mat-form-field appearance="fill" class="custom-field">
+            <mat-label>Select Customer</mat-label>
+            <mat-select formControlName="customer">
+              
+                <mat-option [value]="">Select Category</mat-option>
+                    
+                @for(customer of topCustomers; track i; let i = $index) {
+                    <mat-option [value]="customer">
+                    {{ customer.contactName }}
+                    </mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
+    </div>
+</div>

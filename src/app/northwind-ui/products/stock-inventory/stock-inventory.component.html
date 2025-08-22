@@ -1,0 +1,27 @@
+<section class="stock-form-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <stock-branch 
+        [parent]="form" 
+        [topCustomers]="topCustomers"
+        (selectedCustomer)="getProductsByCustomer($event)">
+        </stock-branch>
+        
+        <stock-selector 
+        [parent]="form"
+        [customerProducts]="customerProducts"
+        (added)="addStock($event)"><!--pass down the products array into this component-->
+        </stock-selector>
+
+        <stock-products 
+        [parent]="form"
+        (removed)="removeStock($event)"
+        >
+        
+        </stock-products>
+
+        <div class="submit-button-stock">
+            <button type="submit" class="btn btn-info" [disabled]="form.invalid">Order Stock</button>
+        </div>
+        <!-- <pre>{{form.value | json}}</pre> -->
+    </form>
+</section>

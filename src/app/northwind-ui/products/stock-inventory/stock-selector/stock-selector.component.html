@@ -1,0 +1,31 @@
+<div class="stock-selector" [formGroup]="parent()">
+    <div formGroupName="selector">
+        <mat-form-field appearance="fill" class="custom-field">
+            <mat-label>Select Product</mat-label>
+            <mat-select formControlName="customerID">
+                
+                <mat-option [value]="">Select Product</mat-option>
+                    
+                @for(product of customerProducts(); track i; let i = $index) {
+                    <mat-option [value]="product">
+                    {{ product.productName }}
+                    </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        
+        <input 
+        class="stock-stepper"
+        type="number" 
+        step="10"
+        min="10"
+        max="40"
+        formControlName="quantity">
+        
+        <button 
+        (click)="onAdd()"
+        type="button"
+        class="btn add-stock-btn"
+        >Add stock</button>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+/**/  
+@use "@material/tooltip/styles";
+
+
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled), .mat-mdc-form-field-focus-overlay {
+  background-color: unset !important;
+}
+
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+  border: solid 1px #ccc;
+  padding:5px;
+}
+
+.mdc-line-ripple {
+  display: none;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
+  margin-top: 12px;
+  margin-left:10px;
+  background-color:#fff;
+}
+
+mat-select {
+  border:solid 1px #ccc;
+  padding:5px;
+
+  & .mat-mdc-select-arrow {
+    display: flex;
+    align-self: self-end;
+  }
+}
+
+
+body {
+  font-family: 'Roboto', sans-serif !important;
+  background-color: #f3f6f8;
+}
+
+.loading-container {
+    display:block;
+    width:80px;
+    margin:50px auto;
+}
+
+
+.lds-ellipsis,
+.lds-ellipsis div {
+  box-sizing: border-box;
+}
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33.33333px;
+  width: 13.33333px;
+  height: 13.33333px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+

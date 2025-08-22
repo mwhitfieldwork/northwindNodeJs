@@ -1,0 +1,78 @@
+.dashboard-container {
+    width: 100%;
+
+    h1 {
+      font-family: "Bitter", serif;
+      font-size: 3rem;
+      font-weight: 700;
+      font-style: normal;
+      color: #121020;
+    }
+  }
+  
+  .dashboard-cards,
+  .detail-information,
+  .employee-information {
+    mat-card {
+      background-color: #fff;
+      border-radius: 6px;
+      }
+  
+      h3 {
+        margin: 0;
+        font-size: medium;
+        height: 25px;
+        white-space: nowrap;
+      }
+  
+      h4 {
+        margin: 0;
+        font-size: small;
+        font-weight: bold;
+      }
+  
+      p {
+        font-size: smaller;
+      }
+  
+      .dashboard-card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #b8c2f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  
+  .dashboard-cards {
+    mat-card {
+      justify-content: space-between;
+      flex-direction: row;
+    }
+  }
+  
+  .detail-information {
+    mat-card {
+      flex-direction: column;
+  
+      .orders {
+        margin-top: 20px;
+      }
+    }
+  }
+  
+  .employee-information {
+    mat-card {
+      width: 50%;
+    }
+  }
+  
+  .chart {
+    background-color: #fff;
+    width: 100%;
+    margin: 15px 0;
+    border-radius: 3px;
+    overflow: hidden;
+  }

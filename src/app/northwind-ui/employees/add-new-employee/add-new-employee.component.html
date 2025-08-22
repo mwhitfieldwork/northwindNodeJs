@@ -1,0 +1,62 @@
+<div class="backdrop"></div>
+<dialog open>
+    <div class="close-dialog" (click)="closeDialog()">X</div>
+    <form [formGroup]="employeeFrom">
+        <div class="add-employee-form">
+            <div cass="add-employee-form__name">
+                <label for="firstName">First Name
+                    <input type="text" placeholder="First Name" name="firstName" formControlName="firstName">
+                </label>
+                <label for="lastName">Last Name
+                    <input type="text" placeholder="Last Name" name="lastName" formControlName="lastName">
+                </label>
+                <label for="title">Title
+                    <input type="text" placeholder="Title" name="title" formControlName="title">
+                </label>    
+            </div>
+            <div>
+                <label for="photo">Photo
+                    <input type="text" placeholder="Photo" name="photo" formControlName="photo">
+                </label>
+                <label for="notes">Notes
+                    <input type="text" placeholder="Notes" name="notes" formControlName="notes">
+                </label>
+            </div>
+        </div>
+        
+        <div class="add-employee-form__location">
+            <label for="address">Address
+                <input type="hidden" placeholder="City" name="city" formControlName="city">
+            </label>
+            <label for="address">Address
+                <input type="hidden" placeholder="Country" name="country" formControlName="country">
+            </label>
+            <label for="postalCode">Postal Code
+                <input type="hidden" placeholder="Postal Code" name="postalCode" formControlName="postalCode">
+            </label>
+            <label for="region">Region
+                <input type="hidden" placeholder="Region" name="region" formControlName="region">
+            </label>
+            <label for="homePhone">Home Phone
+                <input type="hidden" placeholder="Home Phone" name="homePhone" formControlName="homePhone">
+            </label>
+        </div>
+        
+        <div class="add-employee-form__contact">
+            <label for="extension">Extension
+                <input type="hidden" placeholder="Extension" name="extension" formControlName="extension">
+            </label>
+            <label for="titleOfCourtesy">titleOfCourtesy
+                <input type="hidden" placeholder="Title of courtesy" name="titleOfCourtesy" formControlName="titleOfCourtesy">
+            </label>
+            <label for="birthDate">Birth Date
+                <input type="hidden" placeholder="Birth date" name="birthDate" formControlName="birthDate">
+            </label>
+            <label for="hireDate">Hire Date
+                <input type="hidden" placeholder="Hire date" name="hireDate" formControlName="hireDate">
+            </label>
+        </div> 
+        <button type="button" (click)="onSubmit()">Submit</button>
+
+    </form>
+</dialog>

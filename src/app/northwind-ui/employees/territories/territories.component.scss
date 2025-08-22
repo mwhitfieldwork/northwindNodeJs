@@ -1,0 +1,21 @@
+
+.employee-territories {
+    border:3px dashed #ccc;
+    padding:10px;
+    background-color:#f3f6f8;
+    margin-top:10px;
+    display: flex ;
+
+    h3{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size:large;
+        margin-right:20px;
+    }
+
+    p{
+        font-size:smaller;
+        padding:0 10px;
+        margin:0;
+    }
+
+}

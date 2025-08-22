@@ -1,0 +1,21 @@
+@if(user){
+<section id="navigation" >
+    <nav class=""navbar navbar-dark bg-dark>
+        <ul>
+            <!-- if you are seeting the value of an attribute with a string, you dont need square brackets-->
+            <li><a href="https://mwhitfieldwork.github.io/portfolio/#home" 
+                appSafelink 
+                queryParam="northwind">Portfolio</a>
+            </li>
+            <li><a href="https://grittees.bigcartel.com/" 
+                appSafelink 
+                queryParam="northwind">Shop</a>
+            </li>
+            <li>
+                <span class="user">Welcome, {{(user.userName)}}</span>          
+                <a href="#" (click)="Logout()">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</section>
+}

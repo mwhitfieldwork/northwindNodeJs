@@ -1,0 +1,33 @@
+
+.stock-selector {
+    margin-bottom:20px;
+}
+
+select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    margin-right:30px;
+    width:300px;
+
+    &:focus {
+        border-color: #4CAF50; /* Green on focus */
+      } 
+  }
+
+  .stock-stepper {
+    padding:5px;
+    border:1px solid #ccc;
+    width:200px;
+    margin-right:30px;
+  }
+
+  .add-stock-btn{
+    background-color: purple;
+    color:white;
+  }

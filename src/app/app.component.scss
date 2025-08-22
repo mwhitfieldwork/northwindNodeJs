@@ -1,0 +1,35 @@
+
+mat-sidenav-container {
+  height: 100vh; /* Fill the viewport vertically */
+  width: 100%; /* Use the full width of the screen */
+  overflow: hidden; /* Prevent any overflow */
+  box-sizing: border-box; /* Ensure padding is included in the width/height */
+}
+
+  
+  router-outlet {
+    flex: 1;
+    display: block;
+  }
+  
+  app-root {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+
+mat-toolbar {
+    background-color:#3a0852;
+    height:100px;
+}
+
+mat-sidenav {
+    width:250px;
+}
+
+
+@media screen and (max-width: 1100px) {
+    mat-sidenav {
+        width:50px;
+    }
+}

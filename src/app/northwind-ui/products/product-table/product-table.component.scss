@@ -1,0 +1,53 @@
+::ng-deep .mat-sidenav-content {
+    background-color: #f3f6f8; /* Change to your desired color */
+  }
+  
+   #main-wrapper {
+      background-color:#fff;
+      padding:20px 20px 0 20px;
+      width:80%;
+      max-width:1200px;
+      margin: 0 auto;
+  }
+  
+  .table-mat{
+      width:100%;
+      padding:1%;
+  }
+  
+  .table-mat tr:nth-child(even){
+     background-color: #f3f6f7; 
+  }
+  
+  .table-mat tr{
+      display:flex;
+  }
+  
+  .table-mat td, .table-mat th{    
+      display:flex; 
+      flex-grow: 1;
+      width:25%;
+      padding:10px 5px;
+  }
+  
+  @media screen and (max-width:595px){
+      .main-wrapper {
+          margin:0;
+          padding:0;
+      }
+  
+      .btn-success {
+          display:none;
+      }
+  
+      .table-mat td:nth-child(2), 
+      .table-mat th:nth-child(2),
+      .table-mat td:nth-child(3), 
+      .table-mat th:nth-child(3),
+      .table-mat td:nth-child(4), 
+      .table-mat th:nth-child(4)
+      {
+          display:none;
+      }
+  }
+

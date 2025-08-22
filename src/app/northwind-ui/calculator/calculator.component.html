@@ -1,0 +1,44 @@
+<form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
+    <div class="input-group">
+        <p>
+            <label for="initial-investment">Initial Investment</label>
+            <input id="initial-investment" 
+            type="number"  
+            name="initial-investment"
+            [(ngModel)]="enteredInitialInvestment"/>
+        </p>
+        <p>
+            <label for="annual-investment">Annual Investment</label>
+            <input id="annual-investment" 
+            type="number" 
+            name="annual-investment"
+            [(ngModel)]="enteredAnnualInvestment"/>
+        </p>
+    </div>
+    <div class="input-group">
+        <p>
+            <label for="expected-return">
+                Expected Return </label>
+            <input id="expected-return" 
+            type="number" 
+            name="expected-return"
+            [(ngModel)]="enteredExpectedReturn"/>
+        </p>
+        <p>
+            <label for="duration">Duration</label>
+            <input id="duration" 
+            type="number" 
+            name="duration"
+            [(ngModel)]="enteredDuration"/>
+        </p>
+    </div>
+    <p><button>Calculate</button></p>
+
+    <!--<pre>{{form.value | json}}</pre> -->
+</form>
+
+@if(isCalculated){
+    <mat-card>
+        <app-basic-table [dataSource]="dataSource" [displayedColumns]="displayedColumns" appTooltip="Utilizes a generic mat table, the currency is passed in since the currency pipe couldnt be applied in the markup"></app-basic-table>
+    </mat-card>
+}

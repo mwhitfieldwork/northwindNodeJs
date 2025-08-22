@@ -1,0 +1,8 @@
+@if(territoriesList.length >= 1){
+    <div class="employee-territories">
+    <h3>Employee Territories:</h3>
+        @for(territory of territoriesList; track territory.territoryId){
+            <p>{{territory.territoryId}}</p>
+        }
+    </div>
+}

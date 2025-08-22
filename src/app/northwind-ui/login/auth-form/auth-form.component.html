@@ -1,0 +1,22 @@
+
+<div>
+    <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
+        <ng-content select="h3"></ng-content>
+        <label>Email address
+            <input type="email" name="username" ngModel>
+        </label>
+        <label>
+            Password
+            <input type="password" name="passowrd" ngModel>
+        </label>
+        <ng-content select="button"></ng-content>
+    </form>
+
+    <p class="text-danger p-3">{{signInErrorMessage}}</p>
+</div>
+<!-- start here
+        <mat-form-field  class="custom-field">
+            <mat-label>Email address</mat-label>
+            <input matInput placeholder="" formControlName="code" class="custom-input">
+        </mat-form-field>
+-->

@@ -1,0 +1,81 @@
+#employee-list-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom:15px;
+}
+
+#employee-detail-wrapper{
+    display: flex;
+    height:350px;
+    
+    ul {
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-width: 250px;
+        max-height: 300px; 
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    
+        li{
+            border-bottom: 1px solid #ccc;
+    
+            &:hover{
+                cursor: pointer;
+                background-color: #ccc;
+                color:#fff;
+            }
+        }
+    }
+
+    .employee-profile {
+        margin-left: 20px;
+
+        p{
+            margin:0;
+            padding:0;
+        }
+
+        &__greeting {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__name {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            height:100px;
+            margin-bottom:35px; 
+            font-size:larger;
+        }
+
+        &__image {
+            width: 100px;
+            height: 100px;
+            margin-right:10px;
+        }
+
+        &__location {
+            display: flex;
+            font-size:small;
+            font-weight:bold;
+        }
+
+        &__notes{
+            font-size:small;
+        }
+
+        &__drop {
+            display: flex;
+            justify-content: flex-end;
+            margin-top:20px;
+        }
+
+        .drop-button {
+            color:red;
+            text-decoration: none;
+        }
+    }
+}
