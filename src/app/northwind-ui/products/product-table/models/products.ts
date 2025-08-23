@@ -16,6 +16,6 @@ export interface Product {
     unitPrice: number;
     unitsInStock: number;
     unitsOnOrder: number;
-    isDeleted:boolean;
+    isDeleted:number;
     rating:number;
 }

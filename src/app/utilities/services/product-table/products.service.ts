@@ -2,7 +2,7 @@ import { Inject, inject, Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from '../../../northwind-ui/products/product-table/models/products';
-import { catchError, tap, map, take } from 'rxjs/operators'
+import { catchError, tap, map, take, filter } from 'rxjs/operators'
 import { ProductModel } from '../../../utilities/models/product';
 import { Category } from '../../../northwind-ui/products/product-table/models/category';
 import { ProductResponse, ProductListResponse } from '../../../utilities/models/productResponse';
@@ -24,18 +24,20 @@ private _http = inject(HttpClient);
   errorMessage:any;
 
   getProducts(): Observable<Product[]> {
-    //var response = this._http.get<Product[]>(`${this.url}/Product`)
-    var response = this._http.get<ProductListResponse>(`${this.url}/products`)
+    return this._http.get<ProductListResponse>(`${this.url}/products`)
       .pipe(
-        map(products => products.data.slice(0, 10)), 
+        map(response =>
+          response.data
+            .filter(product => product.isDeleted !== 1) 
+            .slice(0, 10)
+        ),
         tap(items => {
-          //console.log(this.url)
+          // console.log(this.url)
         }),
         catchError(this.handleError),
-      )
-
-    return response
+      );
   }
+  
 
   getProduct(productId: string): Observable<Product> {
     //let url = `${this.url}/Product/${productId}`;
@@ -71,7 +73,7 @@ private _http = inject(HttpClient);
 
 
   deleteProduct(id:number): void {
-    let url = `${this.url}/Product/${id}`;
+    let url = `${this.url}/products/${id}`;
     var response = this._http.delete(url)
     .subscribe({
       next: data => {
