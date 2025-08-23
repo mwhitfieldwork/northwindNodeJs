@@ -84,7 +84,8 @@ export class ProductTableDetailComponent implements OnInit{
   }
 
   update(productForm: FormGroup){
-    var productUpdate = {...this.updateProduct, "productId": this.productId,
+    var productUpdate = {...this.updateProduct, 
+      "productId": this.productId,
       "productName": productForm.value.productname,
       "quantityPerUnit": productForm.value.quantity,
       "unitPrice": productForm.value.unitPrice,
@@ -120,9 +121,10 @@ export class ProductTableDetailComponent implements OnInit{
 
   callExistingProduct(){
     const prodId = this.route.snapshot.paramMap.get('id') ?? '';
-
+    this.productId = prodId;
     this._productsService.getProduct(prodId).subscribe(product => { 
       this.ratedProduct = product;
+      this.updateProduct = this.ratedProduct;
       this.productForm.get('productname')?.setValue(this.ratedProduct.productName)
       this.productForm.get('quantity')?.setValue(this.ratedProduct.quantityPerUnit);
       this.productForm.get('unitPrice')?.setValue(this.ratedProduct.unitPrice);
