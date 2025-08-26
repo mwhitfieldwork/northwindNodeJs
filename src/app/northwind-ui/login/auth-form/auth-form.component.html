@@ -3,11 +3,11 @@
     <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
         <ng-content select="h3"></ng-content>
         <label>Email address
-            <input type="email" name="username" ngModel>
+            <input type="email" name="UserName" ngModel>
         </label>
         <label>
             Password
-            <input type="password" name="passowrd" ngModel>
+            <input type="password" name="Password" ngModel>
         </label>
         <ng-content select="button"></ng-content>
     </form>

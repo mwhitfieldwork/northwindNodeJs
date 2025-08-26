@@ -12,7 +12,7 @@ export class UserSessionService {
   private userSubject = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
-  url:string = 'https://localhost:7216';
+  url:string = 'http://localhost:3002/api/v1'
   errorMessage:any;
   
   public get currentUser(): User | null {
@@ -25,7 +25,7 @@ export class UserSessionService {
   }
 
   getUser(userId: string): Observable<Authentication> {
-    let url = `${this.url}/api/Login/${userId}`;
+    let url = `${this.url}/api/Login/me`;
     var response = this._http.get<Authentication>(url)
       .pipe(
         tap(item => {

@@ -65,6 +65,7 @@ ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     //console.log(data);
   });
+
 }
 
   ngonDestroy(): void {

@@ -14,14 +14,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LoginService {
-  url:string = 'https://localhost:7216';
+  url:string = 'http://localhost:3002/api/v1'
   errorMessage:any;
   private _http = inject(HttpClient);
 
   constructor() { }
 
   createUser(authentication: Authentication): Observable<any> {
-    let url = `${this.url}/api/Login/AddUser`;
+    let url = `${this.url}/register`;
     let newLogin = JSON.stringify(authentication)
     var response = this._http.post<Authentication>(url, newLogin, httpOptions);
     console.log(url);
@@ -29,8 +29,8 @@ export class LoginService {
   }
 
   AuthenticateUser(authentication: Authentication): Observable<any> {
-    let url = `${this.url}/api/Login`;
-    let newLogin = JSON.stringify(authentication)
+    let url = `${this.url}/login`;
+    let newLogin = JSON.stringify(authentication);
     var response = this._http.post<Authentication>(url, newLogin, httpOptions);
     console.log(url);
     return response;

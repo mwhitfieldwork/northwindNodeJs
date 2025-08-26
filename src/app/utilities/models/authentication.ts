@@ -1,5 +1,5 @@
 export interface Authentication {
-userName: string;
-passowrd: string;
-admin: boolean;
+UserName: string;
+Password: string;
+admin?: boolean;
 }
