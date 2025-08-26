@@ -35,8 +35,8 @@ constructor() {
 
   verifyUser($event:Authentication){
     this._loginService.AuthenticateUser($event).subscribe((response) => {
-      if(response?.value?.message === "Authentication successful.") {
-        this._userSessionService.setUser(response.value.user.pkid);
+      if(response?.message === "Login successful") {
+        this._userSessionService.setUser(response.data.user.PKID);
         this.router.navigate(['/dashboard']).then(() => {
           window.location.reload();
       });

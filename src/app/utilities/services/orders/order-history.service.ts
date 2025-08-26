@@ -8,13 +8,14 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 })
 export class OrderHistoryService {
   private _http = inject(HttpClient)
-  url:string = 'https://localhost:7216';
+  url:string = 'http://localhost:3002/api/v1'
   errorMessage:any;
   
   constructor() { }
 
+  
   get(): Observable<OrderDetails[]> {
-    return this._http.get<OrderDetails[]>(`${this.url}/api/OrderHistory/`)
+    return this._http.get<OrderDetails[]>(`${this.url}/orders/history`)
     .pipe( 
       tap(items => {
         console.log(this.url)
@@ -22,6 +23,7 @@ export class OrderHistoryService {
       catchError(this.handleError),
     )
   }
+    
 
   private handleError(error: Response) {
     console.error(error);
