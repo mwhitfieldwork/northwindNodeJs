@@ -1,6 +1,6 @@
 import { Directive, inject, input, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserSessionService } from '../../services/user-session/user-session.service';
-import { Authentication } from '../../models/authentication';
+import { Authentication, AuthUser } from '../../models/authentication';
 
 @Directive({
   selector: '[appDisplayLink]',
@@ -13,7 +13,7 @@ export class DisplayLinkDirective implements OnInit{
  private viewContainerRef = inject(ViewContainerRef); //gives access to where int the DOM the directive is being used
 
  userId!:string;
- user!:Authentication | null;
+ user!:AuthUser | null;
 
   ngOnInit(): void {
     const userId = localStorage.getItem('user');
@@ -26,7 +26,7 @@ export class DisplayLinkDirective implements OnInit{
   getUser(){
     if(this.userId) {
       this._userSessionService.getUser(this.userId).subscribe((response) => {
-        this.user = response;
+        this.user = response.data.user;
         if(this.user?.admin){
           this.viewContainerRef.createEmbeddedView(this.templateRef);
          }else{

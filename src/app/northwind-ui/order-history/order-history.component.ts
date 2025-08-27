@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { map, Subscription } from 'rxjs';
 import { OrderHistoryService } from '../../utilities/services/orders/order-history.service';
-import { OrderDetails } from '../../utilities/models/order-detail';
+import { OrderDetails, Orders } from '../../utilities/models/order-detail';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -52,18 +52,18 @@ displayedColumns: string[] = [
 ngAfterViewInit(): void {
   this.orderList = this._orderHistoryService.get()
   .pipe(
-    map(orders => {
-      return orders.map((order, index) => ({
+    map((order: Orders) => {
+      return order.data.map((order, index) => ({
         ...order, 
         pkID: index + 1
       }));
     })
   )
-  .subscribe((data) => {
-    this.dataSource.data = data;
+  .subscribe((flattenedDetails: OrderDetails[]) => {
+    this.dataSource.data = flattenedDetails;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(data);
+    console.log(flattenedDetails);
   });
 
 }

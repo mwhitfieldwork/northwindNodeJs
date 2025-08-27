@@ -20,7 +20,7 @@ export class CalculateGuard implements CanActivate {
     const userId = localStorage.getItem('user');
     if (userId) {
       this._userSessionService.getUser(userId).subscribe((response) => {
-        this.userHasAccess = response.admin === true;
+        this.userHasAccess = response.data.user.admin === true;
       });
     }
 
