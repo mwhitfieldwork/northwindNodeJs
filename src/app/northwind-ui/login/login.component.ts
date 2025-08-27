@@ -6,6 +6,7 @@ import { LoginService } from '../../utilities/services/login/login.service';
 import { Router } from '@angular/router';
 import { UserSessionService } from '../../utilities/services/user-session/user-session.service';
 import { BasicButtonComponent } from '../../shared/basic-button/basic-button.component';
+import { AuthStateService } from '../../utilities/services/auth-state/auth-state.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { BasicButtonComponent } from '../../shared/basic-button/basic-button.com
 })
 export class LoginComponent {
 private _loginService = inject(LoginService)
+private authUser = inject(AuthStateService)
 private _userSessionService = inject(UserSessionService)
 private router = inject(Router)
 signInErrorMessage = '';
@@ -25,8 +27,6 @@ constructor() {
   console.log('UserSessionService instance created');
 }
 
-
-  
   createUser($event:Authentication){
     this._loginService.createUser($event).subscribe((response) => {
       console.log(response);
@@ -36,7 +36,7 @@ constructor() {
   verifyUser($event:Authentication){
     this._loginService.AuthenticateUser($event).subscribe((response) => {
       if(response?.message === "Login successful") {
-        this._userSessionService.setUser(response.data.user.PKID);
+        this._userSessionService.setUser(response.data.user.PKID, response.data.token);
         this.router.navigate(['/dashboard']).then(() => {
           window.location.reload();
       });
