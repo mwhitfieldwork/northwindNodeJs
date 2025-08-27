@@ -1,5 +1,14 @@
+
+export interface AuthUser {
+    UserName: string;
+    PKID: number;
+    admin: boolean;
+}
+
+export interface AuthDetail{
+    user: AuthUser;
+}
 export interface Authentication {
-UserName: string;
-Password: string;
-admin?: boolean;
+    data: AuthDetail;
+    success: string;
 }

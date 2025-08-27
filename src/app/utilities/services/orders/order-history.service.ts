@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { OrderDetails } from '../../models/order-detail';
+import { OrderDetails, Orders } from '../../models/order-detail';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 
@@ -14,8 +14,8 @@ export class OrderHistoryService {
   constructor() { }
 
   
-  get(): Observable<OrderDetails[]> {
-    return this._http.get<OrderDetails[]>(`${this.url}/orders/history`)
+  get(): Observable<Orders> {
+    return this._http.get<Orders>(`${this.url}/orders/history`)
     .pipe( 
       tap(items => {
         console.log(this.url)
