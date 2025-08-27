@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Authentication } from '../../models/authentication';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user.model'
 
 @Injectable({
@@ -14,29 +14,38 @@ export class UserSessionService {
 
   url:string = 'http://localhost:3002/api/v1'
   errorMessage:any;
+  token!:string | null;
   
   public get currentUser(): User | null {
     console.log(this.userSubject.getValue(), "User Gotten")
     return this.userSubject.getValue();
   }
 
-  setUser(id:string): void {
+  setUser(id:string, token:string): void {
       localStorage.setItem('user', JSON.stringify(id)); 
+      localStorage.setItem('token', JSON.stringify(token)); 
   }
 
   getUser(userId: string): Observable<Authentication> {
-    let url = `${this.url}/api/Login/me`;
-    var response = this._http.get<Authentication>(url)
-      .pipe(
-        tap(item => {
-          console.log(item, "This is the USER!!")
-        }),
-        catchError(this.handleError),
-      )
-
-    return response
+    const tokenRaw = localStorage.getItem('token');
+    const token = tokenRaw ? JSON.parse(tokenRaw) : null;
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  
+    // Endpoint remains fixed to /api/Login/me since userId is derived from token
+    const url = `${this.url}/login/me`;
+  
+    return this._http.get<Authentication>(url, { headers }).pipe(
+      tap(response => {
+        console.log("✅ This is the USER!!", response);
+      }),
+      catchError(this.handleError)
+    );
   }
   
+
   private handleError(error: Response) {
     console.error(error);
     return throwError(() => error || 'Server error');

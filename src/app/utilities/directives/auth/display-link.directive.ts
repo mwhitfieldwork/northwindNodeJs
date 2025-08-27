@@ -17,7 +17,7 @@ export class DisplayLinkDirective implements OnInit{
 
   ngOnInit(): void {
     const userId = localStorage.getItem('user');
-
+    
     if (userId) {
         this.userId = JSON.parse(userId); 
         this.getUser();
