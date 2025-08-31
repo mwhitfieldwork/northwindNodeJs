@@ -34,11 +34,11 @@ export class StockCategoryService {
   }
   
 
-  getSalesByCategory(categoryName:string, year:string): Observable<CategorySale[]> {
-    var response = this._http.get<CategorySale[]>(`${this.url}/Category/${categoryName},${year}`)
+  getSalesByCategory(categoryName:string, year:string): Observable<CategorySale> {
+    var response = this._http.get<CategorySale>(`${this.url}/categories/${categoryName}/sales/${year}`)
       .pipe(
         tap(items => {
-         // console.log(items, 'Categories')
+          console.log(items, 'Categories')
         }),
         catchError(this.handleError),
       )
