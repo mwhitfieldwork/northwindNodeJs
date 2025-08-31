@@ -1,4 +1,9 @@
 export interface CategorySale{
-     productName: string,
-    totalPurchase: string
+ success: boolean,
+ data: SaleDetails[]
+}
+
+export interface SaleDetails{
+    ProductName: string,
+    TotalPurchase: string
 }

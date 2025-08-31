@@ -82,27 +82,33 @@ ngOnInit(): void {
 
   this.categorySalesForm.get('category_year')?.valueChanges.subscribe((value: string) => {
     this.categorySalesList = this._categoriesService.getSalesByCategory(this.categoryName, value)
-    .subscribe((sales) => {
-      
-      //filter the number into a new data set
-      this.data = sales
-      .map((x)=> Number(x.totalPurchase) *.025)
-      .slice(0,8);
-      
-      //filter the names as the column data labels
-      this.xlabels = sales.map((x) =>
-        x.productName.length > 3 
-          ? x.productName.slice(0, 3) + '...' 
-          : x.productName
-      ).slice(0,8);
-      
-      this.maxHeight = Math.max(...this.data);
-      console.log(this.maxHeight);
-
-      this.xFullLabels = sales.map((x) => x.productName) //full labels to reveal full names by tooltip
-      
-    });
-  }); 
+      .subscribe((sales) => {
+  
+        // Convert TotalPurchase to scaled numbers
+        this.data = sales.data
+          .map((x) => Number(x.TotalPurchase) * 0.025)
+          .slice(0, 8);
+  
+        // Truncate ProductName for x-axis labels
+        this.xlabels = sales.data
+          .map((x) =>
+            x.ProductName && x.ProductName.length > 3
+              ? x.ProductName.slice(0, 3) + '...'
+              : x.ProductName || 'N/A'
+          )
+          .slice(0, 8);
+  
+        // Capture full labels for tooltips
+        this.xFullLabels = sales.data
+          .map((x) => x.ProductName || 'N/A')
+          .slice(0, 8);
+  
+        // Determine max height for chart scaling
+        this.maxHeight = Math.max(...this.data);
+        //console.log(this.maxHeight);
+      });
+  });
+  
 }
 
 
