@@ -26,6 +26,7 @@ export class Chart1Component implements OnInit {
 
 rectWidth = 10;
 max:number = 250;
+avrg = 50;
 maxHeight = 0;
 dimensions!: DOMRect;
 outerPadding= 50;
@@ -48,7 +49,7 @@ categorySalesForm!: FormGroup;
 data:number[] = [125,100, 50, 75, 200,125,80,65];
 xlabels:string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 xFullLabels:string[] = [];
-ylabels:number[] =[0, 50, 100, this.max].reverse();
+ylabels:number[] =[0, 59, 100, this.max].reverse();
 
 
 constructor(private element:ElementRef, private fb: FormBuilder) {
@@ -67,7 +68,19 @@ ngOnInit(): void {
 
   this.rectWidth = (this.innerWidth -2 * this.outerPadding) / this.data.length;
   this.padding = (1 - this.bandwidthCoef) * this.rectWidth ;
-  this.max = 1.3 * Math.max(...this.data); //1.3 = 130%
+  const rawMax = Math.max(...this.data);
+  const rawMin = Math.min(...this.data);
+  const avg = (rawMax + rawMin) / 2;
+
+  // Define a dynamic padding factor based on spread
+  const spread = rawMax - rawMin;
+  const spreadRatio = spread / rawMax; // closer to 0 = uniform bars, closer to 1 = wide range
+
+  // Use spreadRatio to adjust padding
+  const paddingFactor = 1 + Math.min(0.3, spreadRatio * 0.5);
+  this.max = rawMax * paddingFactor;
+
+  //this.max = Math.max(...this.data); 
   this.bandwidth = this.rectWidth * this.bandwidthCoef;
 
   this.categoriesList = this._categoriesService.getCategories().subscribe(
@@ -85,9 +98,11 @@ ngOnInit(): void {
       .subscribe((sales) => {
   
         // Convert TotalPurchase to scaled numbers
+        const startIndex = 1;
+        const endIndex = startIndex + 7;
         this.data = sales.data
           .map((x) => Number(x.TotalPurchase) * 0.025)
-          .slice(0, 8);
+          .slice(startIndex, endIndex);
   
         // Truncate ProductName for x-axis labels
         this.xlabels = sales.data
@@ -105,12 +120,22 @@ ngOnInit(): void {
   
         // Determine max height for chart scaling
         this.maxHeight = Math.max(...this.data);
-        //console.log(this.maxHeight);
+        this.updateVerticleLabels();
       });
   });
   
 }
 
+updateVerticleLabels(){
+const max = this.max; // already calculated
+const tickCount = 4; // total number of labels (0, mid1, mid2, max)
+
+// Step size between ticks
+const step = max / (tickCount - 1); // → divides range into 3 equal parts
+
+// Generate ticks
+this.ylabels = Array.from({ length: tickCount }, (_, i) => Math.round(i * step)).reverse();
+}
 
 ngOnDestroy(): void {
   if(this.categoriesList){
