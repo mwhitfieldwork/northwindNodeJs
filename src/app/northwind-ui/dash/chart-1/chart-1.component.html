@@ -17,12 +17,12 @@
 
 <svg width="300" height="300" class="bar-chart">
     <!-- Horizontal lines -->
-    <line x1="100" y1="75" [attr.x2]="this.dimensions.width -75" y2="75" class="grid"></line>
-    <line x1="100" y1="135" [attr.x2]="this.dimensions.width -75" y2="135" class="grid"></line>
-    <line x1="100" y1="195" [attr.x2]="this.dimensions.width -75"  y2="195" class="grid"></line>
-    <line x1="100" y1="255" [attr.x2]="this.dimensions.width -75"  y2="255" class="grid"></line>
-    <line x1="100" y1="315" [attr.x2]="this.dimensions.width -75"  y2="315" class="grid"></line>
-    <line x1="100" y1="360" [attr.x2]="this.dimensions.width -75"  y2="360" class="grid"></line>
+    <line x1="50" y1="75" [attr.x2]="this.dimensions.width -75" y2="75" class="grid"></line>
+    <line x1="50" y1="135" [attr.x2]="this.dimensions.width -75" y2="135" class="grid"></line>
+    <line x1="50" y1="195" [attr.x2]="this.dimensions.width -75"  y2="195" class="grid"></line>
+    <line x1="50" y1="255" [attr.x2]="this.dimensions.width -75"  y2="255" class="grid"></line>
+    <line x1="50" y1="315" [attr.x2]="this.dimensions.width -75"  y2="315" class="grid"></line>
+    <line x1="50" y1="360" [attr.x2]="this.dimensions.width -75"  y2="360" class="grid"></line>
 
     @for (item of data; track i; let i = $index) {
         <defs>
@@ -33,10 +33,10 @@
         </defs>
         
       <rect 
-       [attr.x]="i * rectWidth + 0.5 * padding + outerPadding  + 75" 
-       [attr.y]="innerHeight - (innerHeight/max) * item" 
+       [attr.x]="i * rectWidth + 0.5 * padding + outerPadding  + 5" 
+       [attr.height]="(innerHeight / max) * item"
+       [attr.y]="innerHeight - (innerHeight / max) * item"
        [attr.width]="bandwidth"
-       [attr.height]="(innerHeight/max) * item" 
        [attr.fill]="'url(#myGradient)'"></rect>
     }
 
@@ -51,7 +51,7 @@
     <!--<path d="M100, 100L100, 200H200l0, -100h-100" fill="green" style="stroke:red"></path> -->
     @for(label of xlabels; track i; let i = $index) {
         <text 
-        [attr.x]="i * rectWidth + 0.5 * padding + outerPadding + 0.5 *bandwidth + 75" 
+        [attr.x]="i * rectWidth + 0.5 * padding + outerPadding + 0.5 *bandwidth + 5" 
         [attr.y]="dimensions.height - 0.5 * bottom" 
         fill="black" 
         dx="5"
@@ -62,7 +62,7 @@
     @for(label of ylabels; track i; let i = $index) {
         @let reverseIndex = ylabels.length - 1 - i;
         <text 
-        [attr.x]="35" 
+        [attr.x]="15" 
         [attr.y]="80 + (reverseIndex *60)" 
         fill="black" 
         dx="5"
