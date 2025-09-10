@@ -2,7 +2,7 @@
 export interface AuthUser {
     UserName: string;
     PKID: number;
-    admin: boolean;
+    admin: number;
 }
 
 export interface AuthDetail{

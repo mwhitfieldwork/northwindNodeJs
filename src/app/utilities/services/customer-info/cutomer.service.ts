@@ -10,12 +10,12 @@ import { CustomerProducts } from '../../models/customerProducts.model';
 export class CutomerService {
   private _http = inject(HttpClient)
   
-  url:string = 'https://localhost:7216';
+  url:string = 'http://localhost:3002/api/v1';
 
   constructor() { }
 
-  getCustomers(): Observable<DistinctCustomer[]> {
-    var response = this._http.get<DistinctCustomer[]>(`${this.url}/Category/TopCustomers`)
+  getCustomers(): Observable<DistinctCustomer> {
+    var response = this._http.get<DistinctCustomer>(`${this.url}/customers/`)
       .pipe(
         tap(items => {
           //console.log(items, 'Categories')

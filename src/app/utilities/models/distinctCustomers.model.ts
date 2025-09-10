@@ -1,5 +1,9 @@
 export interface DistinctCustomer {
-    pkId: number;
+    success: boolean;
+    data: CustomerDetails[]
+}
+
+export interface CustomerDetails {
     customerId: number;
     contactName: string;
 }
