@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { map, Observable, Subscription } from 'rxjs';
 import { CutomerService } from '../../../../utilities/services/customer-info/cutomer.service';
-import { DistinctCustomer } from '../../../../utilities/models/distinctCustomers.model';
+import { CustomerDetails, DistinctCustomer } from '../../../../utilities/models/distinctCustomers.model';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
 @Component({
@@ -16,7 +16,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 })
 export class StockBranchComponent implements OnInit {
   parent = input<FormGroup>(new FormGroup({})); 
-  @Input() topCustomers: DistinctCustomer[] = [];
+  @Input() topCustomers: CustomerDetails[] = [];
   @Output() selectedCustomer = new EventEmitter<any>()
 
 
@@ -26,8 +26,8 @@ export class StockBranchComponent implements OnInit {
     const storeGroup = this.parent().get('store') as FormGroup;
 
     storeGroup.get('customer')?.valueChanges.subscribe(value => {
-      console.log('Selected customer:', value.customerID)
-      this.selectedCustomer.emit(value.customerID);
+      console.log('Selected customer:', value.custId)
+      this.selectedCustomer.emit(value.custId);
     });
   }
 

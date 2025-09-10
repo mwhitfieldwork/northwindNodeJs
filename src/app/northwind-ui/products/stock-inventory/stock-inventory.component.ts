@@ -9,7 +9,7 @@ import { StockCategoryService } from '../../../utilities/services/category-stock
 import { Category } from '../../../utilities/models/category';
 import { map, Subscription } from 'rxjs';
 import { CutomerService } from '../../../utilities/services/customer-info/cutomer.service';
-import { DistinctCustomer } from '../../../utilities/models/distinctCustomers.model';
+import { CustomerDetails, DistinctCustomer } from '../../../utilities/models/distinctCustomers.model';
 import { CustomerProducts } from '../../../utilities/models/customerProducts.model';
 
 @Component({
@@ -38,7 +38,7 @@ export class StockInventoryComponent implements OnInit, OnDestroy {
   private _customerService = inject(CutomerService);
 
   customerList!:Subscription;
-  topCustomers: DistinctCustomer[] = [];
+  topCustomers: CustomerDetails[] = [];
   customerProductsList!:Subscription;
   customerProducts: CustomerProducts[] = [];
   
@@ -135,7 +135,7 @@ getRating():number {
     this.customerList = this._customerService.getCustomers()
     .pipe(
       map(customers => {
-        return customers.map((customer, index) => ({
+        return customers.data.map((customer, index) => ({
           ...customer, 
           pkID: index + 1
         }));
