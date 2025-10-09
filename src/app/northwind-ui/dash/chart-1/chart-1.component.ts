@@ -32,7 +32,7 @@ dimensions!: DOMRect;
 outerPadding= 50;
 padding = 0;
 bandwidth= 0;
-bandwidthCoef = 0.4; //bandwidth coefficient, how wide each bar is
+bandwidthCoef = 0.8; //bandwidth coefficient, how wide each bar is
 left = 80; right=80; bottom =30 ;top=15;
 innerHeight!:number;
 innerWidth!:number;
@@ -98,17 +98,16 @@ ngOnInit(): void {
       .subscribe((sales) => {
   
         // Convert TotalPurchase to scaled numbers
-        const startIndex = 1;
-        const endIndex = startIndex + 7;
         this.data = sales.data
-          .map((x) => Number(x.TotalPurchase) * 0.025)
-          .slice(startIndex, endIndex);
+          .filter(x => !!x.ProductName && x.ProductName.trim().length > 0)
+          .map((x) => Number(x.TotalPurchase) * 0.009)
+          .slice(0, 8);
   
         // Truncate ProductName for x-axis labels
         this.xlabels = sales.data
           .map((x) =>
             x.ProductName && x.ProductName.length > 3
-              ? x.ProductName.slice(0, 3) + '...'
+              ? x.ProductName.slice(-3)
               : x.ProductName || 'N/A'
           )
           .slice(0, 8);
@@ -120,7 +119,7 @@ ngOnInit(): void {
   
         // Determine max height for chart scaling
         this.maxHeight = Math.max(...this.data);
-        this.updateVerticleLabels();
+        this.updateVerticleLabels
       });
   });
   

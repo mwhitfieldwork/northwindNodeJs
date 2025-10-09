@@ -76,3 +76,11 @@
     border-radius: 3px;
     overflow: hidden;
   }
+
+  div.col > mat-card > article.dashboard-card-icon.bg-total-order {
+    background-color: #45bbe0;
+
+    & svg {
+        fill: #6ddbe3;
+    }
+}
