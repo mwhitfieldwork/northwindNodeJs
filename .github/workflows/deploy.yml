@@ -1,0 +1,21 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - run: npm ci
+      - run: npm run build -- --configuration production --base-href "https://mwhitfieldwork.github.io/northwindNodeJs/"
+      - run: npx angular-cli-ghpages --dir=dist/northwindNodeJs --no-silent
