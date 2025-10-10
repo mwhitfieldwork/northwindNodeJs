@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { filter } from 'rxjs';
 import { DisplayLinkDirective } from './utilities/directives/auth/display-link.directive';
+import { environment } from '../environments/environment';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit{
       this.isLoggedIn = currentUrl !== '/' && currentUrl !== '';
     });
 
-  }
+    console.log('Active API URL:', environment.apiUrl);
 
+  }
 }
