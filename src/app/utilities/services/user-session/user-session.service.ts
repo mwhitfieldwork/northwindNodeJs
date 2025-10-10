@@ -1,4 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 import { Authentication } from '../../models/authentication';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,7 +13,7 @@ export class UserSessionService {
   private userSubject = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
-  url:string = 'http://localhost:3002/api/v1'
+  url:string =  environment.apiUrl;
   errorMessage:any;
   token!:string | null;
   
