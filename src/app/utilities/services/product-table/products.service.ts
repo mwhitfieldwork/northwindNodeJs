@@ -6,6 +6,7 @@ import { catchError, tap, map, take, filter } from 'rxjs/operators'
 import { ProductModel } from '../../../utilities/models/product';
 import { Category } from '../../../northwind-ui/products/product-table/models/category';
 import { ProductResponse, ProductListResponse } from '../../../utilities/models/productResponse';
+import { environment } from '../../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,7 +21,7 @@ const httpOptions = {
 export class ProductsService {
 private _http = inject(HttpClient);
 
-  url:string = 'http://localhost:3002/api/v1';
+  url:string = environment.apiUrl;
   errorMessage:any;
 
   getProducts(): Observable<Product[]> {

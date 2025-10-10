@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Authentication } from '../../models/authentication';
+import { environment } from '../../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LoginService {
-  url:string = 'http://localhost:3002/api/v1'
+  url:string = environment.apiUrl;
   errorMessage:any;
   private _http = inject(HttpClient);
 
