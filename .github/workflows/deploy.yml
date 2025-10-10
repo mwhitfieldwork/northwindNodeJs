@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular app with correct base href
-        run: ng build --configuration production --base-href "/northwindNodeJs/"
+        run: npx ng build --configuration production --base-href "/northwindNodeJs/"
 
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/nwrevised/browser --no-silent
