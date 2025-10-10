@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: deploy
 
 on:
   push:
@@ -10,12 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - run: npm ci
-      - run: npm run build -- --configuration production --base-href "https://mwhitfieldwork.github.io/northwindNodeJs/"
-      - run: npx angular-cli-ghpages --dir=dist/northwindNodeJs --no-silent
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app with correct base href
+        run: ng build --configuration production --base-href "/northwindNodeJs/"
+
+      - name: Deploy to GitHub Pages
+        run: npx angular-cli-ghpages --dir=dist/nwrevised/browser --no-silent
