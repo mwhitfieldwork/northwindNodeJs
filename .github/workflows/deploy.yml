@@ -23,6 +23,11 @@ jobs:
 
       - name: Build Angular app with correct base href
         run: npx ng build --configuration production --base-href "/northwindNodeJs/"
-
+      
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "mwhitfieldwork@users.noreply.github.com"
+          git config --global user.name "mwhitfieldwork"
+          
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/nwrevised/browser --no-silent
