@@ -30,4 +30,4 @@ jobs:
           git config --global user.name "mwhitfieldwork"
           
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/nwrevised/browser --no-silent
+        run: npx angular-cli-ghpages --dir=dist/nwrevised/browser --no-silent --repo=https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mwhitfieldwork/northwindNodeJs.git
