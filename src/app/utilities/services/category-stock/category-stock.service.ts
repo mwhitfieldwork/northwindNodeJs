@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { catchError, map, Observable, tap, throwError} from 'rxjs';
 import { Category } from '../../models/category';
 import { CategorySale } from '../../models/categorySale';
+import { environment } from '../../../../environments/environment';
 
 interface CategoryResponse {
   success: boolean;
@@ -16,7 +17,7 @@ export class StockCategoryService {
   private _http = inject(HttpClient)
   
   //url:string = 'https://localhost:7216';
-  url:string = 'http://localhost:3002/api/v1';
+  url:string = environment.apiUrl;
   
   constructor() { }
 
