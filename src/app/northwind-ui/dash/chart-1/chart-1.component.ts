@@ -7,50 +7,49 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { GenericChartComponent } from "../../../shared/generic-chart/generic-chart.component";
+import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-chart-1',
   standalone: true,
   imports: [
-    ReactiveFormsModule, 
-    FormsModule, 
+    ReactiveFormsModule,
+    FormsModule,
     MatTooltipModule,
-    MatInputModule, 
-    MatFormFieldModule, 
-    MatSelectModule
-  ],
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    GenericChartComponent
+],
   templateUrl: './chart-1.component.html',
   styleUrl: './chart-1.component.scss'
 })
 export class Chart1Component implements OnInit {
-
-rectWidth = 10;
-max:number = 250;
-avrg = 50;
-maxHeight = 0;
-dimensions!: DOMRect;
-outerPadding= 50;
-padding = 0;
-bandwidth= 0;
-bandwidthCoef = 0.8; //bandwidth coefficient, how wide each bar is
-left = 80; right=80; bottom =30 ;top=15;
-innerHeight!:number;
-innerWidth!:number;
-
-
 categories: Category[] = [];//sales by category
 private _categoriesService = inject(StockCategoryService);
 categoriesList!:Subscription;
 categorySalesList!:Subscription;
 categoryName:string = "";
-
-
 categorySalesForm!: FormGroup;
-data:number[] = [125,100, 50, 75, 200,125,80,65];
-xlabels:string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-xFullLabels:string[] = [];
-ylabels:number[] =[0, 59, 100, this.max].reverse();
-
+data:number[] = [125,100, 50, 75, 200,125,80,65, 120, 100,300,120];
+xlabels:string[] = [  
+  "Ridge Backpack",
+  "Ember Journal",
+  "Utility Pouch",
+  "Travel Flask",
+  "Canvas Tote",
+  "Sketch Roll",
+  "Field Binder",
+  "Cargo Wrap",
+  "Tool Satchel",
+  "Lantern Case",
+  "Supply Crate",
+  "Organizer Kit"
+];
+  
+barChartData!: ChartData<'bar'>;
+barChartOptions!: ChartOptions<'bar'>;
 
 constructor(private element:ElementRef, private fb: FormBuilder) {
   //console.log(this.element.nativeElement);
@@ -61,27 +60,27 @@ constructor(private element:ElementRef, private fb: FormBuilder) {
 }
 
 ngOnInit(): void {
-  const svg = this.element.nativeElement.getElementsByTagName('svg')[0];
-  this.dimensions = svg.getBoundingClientRect();
-  this.innerWidth = this.dimensions.width - this.left - this.right;
-  this.innerHeight = this.dimensions.height - this.top - this.bottom;
+  //const svg = this.element.nativeElement.getElementsByTagName('svg')[0];
+ // this.dimensions = svg.getBoundingClientRect();
+  //this.innerWidth = this.dimensions.width - this.left - this.right;
+  //this.innerHeight = this.dimensions.height - this.top - this.bottom;
 
-  this.rectWidth = (this.innerWidth -2 * this.outerPadding) / this.data.length;
-  this.padding = (1 - this.bandwidthCoef) * this.rectWidth ;
-  const rawMax = Math.max(...this.data);
-  const rawMin = Math.min(...this.data);
-  const avg = (rawMax + rawMin) / 2;
+  //this.rectWidth = (this.innerWidth -2 * this.outerPadding) / this.data.length;
+  //this.padding = (1 - this.bandwidthCoef) * this.rectWidth ;
+  //const rawMax = Math.max(...this.data);
+ // const rawMin = Math.min(...this.data);
+ // const avg = (rawMax + rawMin) / 2;
 
   // Define a dynamic padding factor based on spread
-  const spread = rawMax - rawMin;
-  const spreadRatio = spread / rawMax; // closer to 0 = uniform bars, closer to 1 = wide range
+  //const spread = rawMax - rawMin;
+  //const spreadRatio = spread / rawMax; // closer to 0 = uniform bars, closer to 1 = wide range
 
   // Use spreadRatio to adjust padding
-  const paddingFactor = 1 + Math.min(0.3, spreadRatio * 0.5);
-  this.max = rawMax * paddingFactor;
+  //const paddingFactor = 1 + Math.min(0.3, spreadRatio * 0.5);
+  //this.max = rawMax * paddingFactor;
 
   //this.max = Math.max(...this.data); 
-  this.bandwidth = this.rectWidth * this.bandwidthCoef;
+  //this.bandwidth = this.rectWidth * this.bandwidthCoef;
 
   this.categoriesList = this._categoriesService.getCategories().subscribe(
     (response) => {
@@ -101,40 +100,50 @@ ngOnInit(): void {
         this.data = sales.data
           .filter(x => !!x.ProductName && x.ProductName.trim().length > 0)
           .map((x) => Number(x.TotalPurchase) * 0.009)
-          .slice(0, 8);
-  
-        // Truncate ProductName for x-axis labels
-        this.xlabels = sales.data
-          .map((x) =>
-            x.ProductName && x.ProductName.length > 3
-              ? x.ProductName.slice(-3)
-              : x.ProductName || 'N/A'
-          )
-          .slice(0, 8);
-  
-        // Capture full labels for tooltips
-        this.xFullLabels = sales.data
-          .map((x) => x.ProductName || 'N/A')
-          .slice(0, 8);
-  
-        // Determine max height for chart scaling
-        this.maxHeight = Math.max(...this.data);
-        this.updateVerticleLabels
+          .slice(0, 12);
+          
+          this.xlabels = Array.from(
+            new Set(
+              sales.data
+                .filter(x => !!x.ProductName && x.ProductName.trim().length > 0)
+                .map(x => x.ProductName.trim().toLowerCase())
+            )
+          ).slice(0, 12);
+          
+
+        // Update the bar chart
+          this.displayData("dropdown");
       });
   });
-  
+  this.displayData("ngInit");
+}
+displayData(scope:string){
+  console.log(scope);
+
+  this.barChartData = {
+    labels: this.xlabels,
+    datasets: [
+      {
+        label: 'categories',
+        data: this.data,
+        backgroundColor: [
+          "#FF6F61", "#FFB347", "#FFD700", "#FF8C00", "#FF4500",
+          "#DC143C", "#E9967A", "#CD5C5C", "#FFA07A", "#F4A460", "#D2691E"
+        ]
+      }
+    ]
+  };
+
+  this.barChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' },
+      tooltip: { enabled: true }
+    }
+  };
+
 }
 
-updateVerticleLabels(){
-const max = this.max; // already calculated
-const tickCount = 4; // total number of labels (0, mid1, mid2, max)
-
-// Step size between ticks
-const step = max / (tickCount - 1); // → divides range into 3 equal parts
-
-// Generate ticks
-this.ylabels = Array.from({ length: tickCount }, (_, i) => Math.round(i * step)).reverse();
-}
 
 ngOnDestroy(): void {
   if(this.categoriesList){
