@@ -1,22 +1,22 @@
 import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
-import { EmployeesComponent } from "../employees/employees.component";
 import { MatCardModule } from '@angular/material/card';
-import { StockInventoryComponent } from "../products/stock-inventory/stock-inventory.component";
 import { Chart1Component } from "./chart-1/chart-1.component";
 import { OrderHistoryComponent } from "../order-history/order-history.component";
 import { UserSessionService } from '../../utilities/services/user-session/user-session.service';
 import { ActivatedRoute } from '@angular/router';
 import { TooltipDirective } from '../../utilities/directives/tooltip/tooltip.directive';
+import { GenericChartComponent } from "../../shared/generic-chart/generic-chart.component";
+import { ChartOptions } from 'chart.js';
 @Component({
   selector: 'app-dash',
   standalone: true,
   imports: [
-    EmployeesComponent, 
-    MatCardModule, 
-    StockInventoryComponent, 
-    Chart1Component, 
+    MatCardModule,
+    Chart1Component,
     OrderHistoryComponent,
-    TooltipDirective],
+    TooltipDirective,
+    GenericChartComponent
+],
   templateUrl: './dash.component.html',
   styleUrl: './dash.component.scss'
 })
@@ -69,6 +69,26 @@ export class DashComponent implements OnInit {
     this.currentStatus_signal.set('online');
   }
 
+  barChartData = {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [
+      {
+        label: 'Votes',
+        data: [12, 19, 3],
+        backgroundColor: ['#f44336', '#2196f3', '#ffeb3b']
+      }
+    ]
+  };
+  
+  barChartOptions: ChartOptions<'bar'> = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' },
+      tooltip: { enabled: true }
+    }
+  };
+  
+  
 
 }
 
